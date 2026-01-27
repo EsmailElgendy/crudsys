@@ -3,7 +3,6 @@ package com.example.crudsys.service;
 import com.example.crudsys.model.Student;
 import com.example.crudsys.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,6 @@ import java.util.List;
 public class StudentService {
 
     @Value("${student.mark.limit}")
-    private int studentMarkLimit;
 
     private final StudentRepository studentRepository;
 
