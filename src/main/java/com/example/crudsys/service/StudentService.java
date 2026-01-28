@@ -3,8 +3,9 @@ import com.example.crudsys.model.Student;
 import com.example.crudsys.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import com.example.crudsys.exceptions.StudentNotFoundException;
+import com.example.crudsys.exceptions.NoStudentException;
 
 @Service
 public class StudentService {
@@ -21,11 +22,18 @@ public class StudentService {
     //Read by ID
 
     public Student getStudent(Long id) {
-        return studentRepository.getById(id);
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException(id));
     }
     //Read all
     public List<Student> getAllStudents() {
-        return studentRepository.findAll();
+
+        List<Student> students = studentRepository.findAll();
+
+        if (students.isEmpty()) {
+            throw new NoStudentException("Database is empty! No students found.");
+        }
+        return students;
     }
 
     //Update
