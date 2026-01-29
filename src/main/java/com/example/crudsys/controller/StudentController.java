@@ -1,19 +1,20 @@
 package com.example.crudsys.controller;
 import com.example.crudsys.model.Student;
 import com.example.crudsys.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+
+@RequiredArgsConstructor
 @RestController @RequestMapping("/student")
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
     //Creat
     @PostMapping()
-    public Student addStudent(@RequestBody Student student) {
+    public Student addStudent(@Valid @RequestBody Student student) {
         return studentService.createStudent(student);
     }
 

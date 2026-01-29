@@ -1,21 +1,26 @@
 package com.example.crudsys.service;
 import com.example.crudsys.model.Student;
 import com.example.crudsys.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import com.example.crudsys.exceptions.StudentNotFoundException;
 import com.example.crudsys.exceptions.NoStudentException;
 
 @Service
+@RequiredArgsConstructor
 public class StudentService {
 
-    @Autowired
-    private StudentRepository studentRepository;
+
+    private final  StudentRepository studentRepository;
 
     //Creat
 
-    public Student createStudent(Student student) {
+    public Student createStudent( Student student) {
+
+        if(studentRepository.existsByEmail(student.getEmail())) {
+            throw new RuntimeException("Email already used");
+        }
         return studentRepository.save(student);
     }
 
